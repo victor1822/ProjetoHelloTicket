@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Jquery -->
+    <script
+    src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <!-- Jquery Mask -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="Style/style-reset.css">
+    <link rel="stylesheet" href="Style/index.css">
+    <link rel="stylesheet" href="Style/responsive.css">
+    <!-- fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <title>Victor Veículos</title>
+</head>
+<body>
+    <!-- Div criada para fazer o popup do formulário de cadastro -->
+    <div id="modal" class="hide">
+        <div class="content">
+            <div class="btnExit" onclick="toggleModal()"></div>
+            <div class="titulo">
+                <h1>Novo Veículo</h1>
+            </div>
+            <div class="container">
+                <form>
+                    <div class="field" id="campoplaca">
+                        <label for="placa">Placa:</label>
+                            <input type="text" id="placa" placeholder="Placa do veículo" onkeypress="$(this).mask('AAA-9999')" required>
+                    </div>
+                    <div class="field" id="campomodelo">
+                        <label for="modelo">Modelo:</label>
+                        <input type="text" id="modelo" placeholder="Modelo do veículo" required>
+                        </div>
+                        <div class="field" id="campofabricante">
+                            <label for="name">Fabricante:</label>
+                            <select id="fabricante" required>
+                                <option value="">Selecione o fabricante</option>
+                            </select>
+                        </div>
+                        <div class="field" id="campodatacompra">
+                            <label for="datacompra">Data de compra:</label>
+                            <input type="date" id="datacompra" placeholder="Data de compra do veículo" required>
+                        </div>
+                        <div class="field" id="campodatavenda">
+                            <label for="datavenda">Data de venda:</label>
+                            <input type="date" id="datavenda" placeholder="Data de venda do veículo" required>
+                        </div>
+                        <div class="field" id="camposituacao">
+                            <label for="situacao">Situação:</label>
+                            <select id="situacao" required>
+                                <option value="">Selecione a situacao</option>
+                            </select>
+                        </div>
+                </form>                
+            </div>
+            <div class="btnSave" onclick="saveNewCar()">
+                <button>Cadastrar novo veículo</button>
+            </div>
+        </div>
+    </div>
+    <div id="modal2" class="hide">
+        <div class="content">
+            <div class="btnExit" onclick="toggleModal2()"></div>
+            <div class="titulo">
+                <h1>Editar veículo</h1>
+            </div>
+        </div>
+    </div>
+    <Main>
+        <div class="TitleContent">
+            <h1>Meu controle de veículos</h1>
+        </div>
+        <div class="table">
+            <div class="titles">
+                <h3>Placa</h3>
+                <h3>Modelo</h3>
+                <h3>Fabricante</h3>
+                <h3>Data de Compra</h3>
+                <h3>Data de Venda</h3>
+                <h3>Situação</h3>
+                <h3>Edit/Del</h3>
+            </div>
+            <div id="display">
+                <ul>
+                    <!-- Aqui que é carregado a lista de carros -->
+                </ul>
+            </div>
+        </div>
+        <div class="btnCreate">
+            <button onclick="toggleModal()">Novo veículo</button>
+        </div>
+
+    </Main>
+    <div id="ref">Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+</body>
+<script src="index.js"></script>
+</html>

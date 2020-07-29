@@ -1,0 +1,248 @@
+
+/* modal é o id da div que é o background do popup do formulário de cadastro de um novo veículo */
+#modal, #modal2{
+    height: 100vh;
+    width: 100vw;
+    background-color: #0e0a14ef;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: 400ms;
+}
+
+/* estilização para esconder o modal*/
+#modal.hide, #modal2.hide{
+    display: none;
+}
+
+#modal .content, #modal2 .content {
+    background-color: whitesmoke;
+    width: 60%;
+    height: 90%;
+    border-radius: 10px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    position: fixed;
+}
+
+#modal .content .btnExit,
+#modal2 .content .btnExit{
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: url(https://image.flaticon.com/icons/svg/149/149690.svg) no-repeat;
+    opacity: 0.8;
+    transition: 0.5s;
+}
+
+#modal .content .btnExit:hover,
+#modal2 .content .btnExit:hover{
+    opacity: 1;
+}
+
+#modal .content .container{
+    flex: 1;
+    display: flex;
+    width: 100%;
+}
+
+#modal .content .container form{
+    flex: 1;
+    width: 100%;
+}
+
+#modal .content .container form .field{
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    max-width: 80%;
+}
+
+#modal .content .container form .field label{
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+#modal .content .container form .field input,
+#modal .content .container form .field select{
+    height: 35px;
+    border-color: #746a6a;
+    border-width: 1px;
+    border-radius: 5px;
+    font-size: 1.3em;
+    padding-left: 10px;
+}
+
+#modal .content .btnSave{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal .content .btnSave button{
+    background-color: #141414;
+    color: whitesmoke;
+    height: 50px;
+    width: 40%;
+    max-width: 300px;
+    min-width: 250px;
+    font-size: 1.4em;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #141414;
+    opacity: 0.8;
+    transition: 0.5s;
+}
+
+#modal .content .btnSave button:hover{
+    opacity: 1;
+}
+
+#modal .titulo h1{
+    color: #141414;
+}
+
+Main{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+Main .btnCreate{
+    margin-bottom: 15px;
+}
+
+Main .btnCreate button{
+    background-color: #141414;
+    color: whitesmoke;
+    height: 50px;
+    width: 40%;
+    max-width: 300px;
+    min-width: 250px;
+    font-size: 1.4em;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #141414;
+}
+
+#ref{text-align: center;}
+
+Main .table{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    justify-self: center;
+    width: 95%;
+    height: 70vh;
+    align-self: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,.621);
+    margin-bottom: 30px;
+}
+
+Main .table .titles{
+    display: flex;
+    min-height: 30px;
+    font-size: 0.9em;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #141414;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+Main .table .titles h3{
+
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    color: whitesmoke; 
+}
+
+Main .table #display{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(245, 245, 245, 0.459);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: auto;
+}
+
+Main .table #display ul{
+    margin: 0 0;
+    padding-left: 0;
+}
+
+Main .table #display ul li{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 10vh;
+    background-color: rgb(204, 233, 217);
+    width: auto;
+}
+
+Main .table #display ul li:nth-child(odd){
+    /* background-color: rgba(245, 245, 245, 0.562); */
+    background-color: whitesmoke
+}
+
+Main .table #display ul li.Vendido{
+    background-color: rgb(2, 66, 11);
+}
+
+Main .table #display ul li.Vendido h4{
+    color:whitesmoke;
+}
+
+Main .table #display ul li h4{
+    /* width: 10%; */
+    flex:1;
+    text-align: center;
+    margin: 0;
+    vertical-align: center;
+    align-self: center;
+    color: #0b003a; 
+}
+
+Main .table #display ul li div{
+    /* width: 10%; */
+    margin: 0;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+Main .table #display ul li div .btnEdit, .btnDel{
+    border-width: 0px;
+    background-color: rgb(185, 183, 183);
+    border-radius: 3px;
+    height: 25px;
+    width: 100px;
+    color: black;
+    font-weight: bold;
+}
+
+Main .table #display ul li div .btnEdit:hover{
+    background-color: rgb(196, 196, 253);
+}
+
+Main .table #display ul li div .btnDel:hover{
+    background-color: rgb(236, 189, 189);
+}

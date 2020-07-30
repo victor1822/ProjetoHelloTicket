@@ -28,7 +28,7 @@
                 <form>
                     <div class="field" id="campoplaca">
                         <label for="placa">Placa:</label>
-                            <input type="text" id="placa" placeholder="Placa do veículo" onkeypress="$(this).mask('AAA-9999')" required>
+                            <input type="text" id="placa" placeholder="Placa do veículo (LLL-NNLN)" onkeypress="$(this).mask('SSS-00S0')" required>
                     </div>
                     <div class="field" id="campomodelo">
                         <label for="modelo">Modelo:</label>
@@ -61,17 +61,79 @@
             </div>
         </div>
     </div>
+    <!-- Modal2 -->
     <div id="modal2" class="hide">
         <div class="content">
             <div class="btnExit" onclick="toggleModal2()"></div>
             <div class="titulo">
                 <h1>Editar veículo</h1>
             </div>
+            <div class="cardEditField hide">
+                <div class="field">
+                    <label for="editIndex">PlacaModelo:</label>
+                    <!-- input para guardar a placa do veículo a ser editado -->
+                    <input type="text" id="editIndex" placeholder="Placa do veículo">
+                </div>
+            </div>
+            <div class="cardEditField">
+                <div class="field">
+                    <label for="editModelo">Modelo:</label>
+                    <!-- input para editar o valor deve ter um valor inicial igual ao antigo valor que tinha -->
+                    <input type="text" id="editModelo" placeholder="Modelo do veículo">
+                    <button onclick="editCar('modelo')">Editar</button>
+                </div>
+            </div>
+            <div class="cardEditField">
+                <div class="field">
+                    <label for=editDataCompra">Data da compra:</label>
+                    <!-- input para editar o valor deve ter um valor inicial igual ao antigo valor que tinha -->
+                    <input type="date" id="editDataCompra"/>
+                    <button onclick="editCar('datec')">Editar</button>
+                </div>
+            </div>
+            <div class="cardEditField">
+                <div class="field">
+                    <label for="editDataVenda">Data da venda:</label>
+                    <!-- input para editar o valor deve ter um valor inicial igual ao antigo valor que tinha -->
+                    <input type="date" id="editDataVenda"/>
+                    <button onclick="editCar('datev')">Editar</button>
+                </div>
+            </div>
+            <div class="cardEditField">
+                <div class="field">
+                    <label for="editSituacao">Data da venda:</label>
+                    <!-- input para editar o valor deve ter um valor inicial igual ao antigo valor que tinha -->
+                    <select id="editSituacao" required>
+                        <option value="">Selecione a situacao</option>
+                    </select>
+                    <button onclick="editCar('situacao')">Editar</button>
+                </div>
+            </div>
         </div>
     </div>
     <Main>
         <div class="TitleContent">
             <h1>Meu controle de veículos</h1>
+        </div>        
+        <div class="filtrosContent">
+            <label for="filtros">
+                <h4>Filtrar por:</h4>
+            </label>
+            <div class="filtros">
+                <div class="filtro">
+                    <label for="filtroSituacao">situação</label>
+                    <select id="filtroSituacao" onchange="reloadDivs()">
+                            <option value="">Selecione uma opção</option>
+                    </select>
+                </div>
+                <div class="filtro">
+                    <label for="filtroPeriodo">período de data de compra</label>
+                    <div>
+                        <input type="date" id="inicio" onchange="reloadDivs()">
+                        <input type="date" name="" id="fim" onchange="reloadDivs()">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="table">
             <div class="titles">

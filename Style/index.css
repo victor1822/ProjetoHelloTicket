@@ -19,7 +19,7 @@
     display: none;
 }
 
-#modal .content, #modal2 .content {
+#modal .content {
     background-color: whitesmoke;
     width: 60%;
     height: 90%;
@@ -111,6 +111,68 @@
     color: #141414;
 }
 
+#modal2 .content {
+    background-color: whitesmoke;
+    width: 500px;
+    height: 420px;
+    border-radius: 10px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    position: fixed;
+}
+
+#modal2 .content .cardEditField{
+    /* background-color: pink; */
+    height: 80px;
+    display: flex;
+    width: 370px;
+    padding: 10px;
+    padding-top: 20px;
+}
+
+#modal2 .content .cardEditField .field{
+    position: fixed; 
+    flex:1;
+    display: flex;
+    align-items: center;
+}
+
+#modal2 .content .cardEditField.hide{
+    display: none;
+}
+
+#modal2 .content .cardEditField label{
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+}
+
+#modal2 .content .cardEditField button{
+    height: 40px;
+    width: 100px;
+    border-style: none;
+    background-color: #141414;
+    color: whitesmoke;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#modal2 .content .cardEditField select,
+#modal2 .content .cardEditField .field input{
+    width: 250px;
+    margin: auto;
+    height: 40px;
+    background-color: rgb(226, 221, 221);
+    border-style: none;
+    color: #141414;
+    /* display: flex; */
+    padding: 10px;
+    align-items: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
 Main{
     flex:1;
     display: flex;
@@ -136,7 +198,9 @@ Main .btnCreate button{
     background-color: #141414;
 }
 
-#ref{text-align: center;}
+#ref{
+    text-align: center;
+}
 
 Main .table{
     display: flex;
@@ -144,7 +208,7 @@ Main .table{
     justify-content: start;
     justify-self: center;
     width: 95%;
-    height: 70vh;
+    height: 60vh;
     align-self: center;
     border-radius: 10px;
     box-shadow: 5px 5px 5px 5px rgba(0,0,0,.621);
@@ -245,4 +309,45 @@ Main .table #display ul li div .btnEdit:hover{
 
 Main .table #display ul li div .btnDel:hover{
     background-color: rgb(236, 189, 189);
+}
+
+Main .filtrosContent{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 40px;
+}
+
+Main .filtrosContent label h4{
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+main .filtrosContent .filtros .filtro{
+    display: flex;
+    flex-direction: column;
+    /* position: fixed; */
+}
+
+Main .filtrosContent .filtro label{
+    font-size: 0.8em;
+    pos
+}
+
+Main .filtrosContent input,
+Main .filtrosContent select{
+    padding-left: 10px;
+    background-color: rgb(196, 190, 190);
+    border-style: none;
+    height: 30px;
+    width: 170px;
+    border-radius: 5px;
+}
+
+main .filtrosContent .filtros{
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    /* background-color: pink; */
 }

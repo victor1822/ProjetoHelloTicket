@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal2 -->
+    <!-- Modal2 - Div criada para o formulario de edicao-->
     <div id="modal2" class="hide">
         <div class="content">
             <div class="btnExit" onclick="toggleModal2()"></div>
@@ -111,6 +111,7 @@
             </div>
         </div>
     </div>
+    <!-- Div main contém todo o conteúdo da página principal -->
     <Main>
         <div class="TitleContent">
             <h1>Meu controle de veículos</h1>
@@ -129,8 +130,8 @@
                 <div class="filtro">
                     <label for="filtroPeriodo">período de data de compra</label>
                     <div>
-                        <input type="date" id="inicio" onchange="reloadDivs()">
-                        <input type="date" name="" id="fim" onchange="reloadDivs()">
+                        <input type="date" id="inicio" onchange="reloadDataFimMinDateAndReloadListDivs()">
+                        <input type="date" name="" id="fim" onchange="reloadDataInicioMaxDateAndReloadListDivs()">
                     </div>
                 </div>
             </div>
@@ -156,6 +157,7 @@
         </div>
 
     </Main>
+    <!-- Referencias do icone de fechar os popups -->
     <div id="ref">Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 </body>
 <script src="index.js"></script>

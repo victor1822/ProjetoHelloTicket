@@ -1,3 +1,5 @@
+//=================================Criacao e declaracao de variaveis=================================
+
 // estrutura da classe carro
 class Carro {
     constructor(placa, modelo, fabricante, dataDeCompra, stringDataCompra, dataDeVenda, stringDataVenda, situacao) {
@@ -12,26 +14,87 @@ class Carro {
     }
   }
 
-  // Arrays de possíveis estáticas para cadastro fabricantes, e de situações
-  const listaDeFabricantes = ['Toyota','Honda','Fiat','VW'];
-  const listaDeSituacoes = ['Em uso', 'Em manutenção', 'Vendido'];
+// Arrays de possíveis estáticas para cadastro fabricantes, e de situações
+const listaDeFabricantes = ['Toyota','Honda','Fiat','VW'];
+const listaDeSituacoes = ['Em uso', 'Em manutenção', 'Vendido'];
 
-  // Array de carros
-  let carros = [];
-  let tmpArr = [];
+// Array de carros
+let carros = [];
+let tmpArr = [];
 
-  function loadCarsFromStorage(){
-    // Pega os dados do navegador
-    return new Promise((resolve, reject)=>{
-        carros = JSON.parse(localStorage.getItem('cars')) || []; //caso o local storage esteja vazio, retornar array vazio
-        resolve(carros);
-    });
+//=================================Funções de escrita e leitura de dados na memória local=================================
+
+function loadCarsFromStorage(){
+  // Pega os dados do navegador
+  return new Promise((resolve, reject)=>{
+      carros = JSON.parse(localStorage.getItem('cars')) || []; //caso o local storage esteja vazio, retornar array vazio
+      resolve(carros);
+  });
 }
 
-  // Salva os dados no navegador
+// Salva os dados no navegador
 function saveCarsToStorage(){
-    localStorage.setItem('cars',JSON.stringify(carros));
+  localStorage.setItem('cars',JSON.stringify(carros));
 }
+  
+//=================================Funções de manipulação de data=================================
+
+//Função que pega a data no formato do date do javascript e converte para o formato compativel com o input 'YYYY-MM-DD'
+function nowDateToInputDateFormat(date) {
+  var d = new Date(date),
+  month = '' + (d.getMonth() + 1),
+  day = '' + d.getDate(),
+  year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+//converte string 'YYYY-MM-DD' e converte em data do javascript
+function stringToDate(data) {
+
+  //pega a primeira fatia da string que vem antes do primeiro traço
+  var ano  = data.split("-")[0];
+  //pega a primeira fatia da string que vem antes do segundo traço e depois do primeiro
+  var mes  = data.split("-")[1];
+  //pega a primeira fatia da string que vem antes do terceiro traço e depois do segundo
+  var dia  = data.split("-")[2];
+
+  return new Date(ano,mes-1,dia);
+}
+
+// converte uma data no formato 'YYYY-MM-DD' em string e retorna uma string no formato de data local 'DD/MM/YYYY'
+function formatDate(data) {
+
+  //pega a primeira fatia da string que vem antes do primeiro traço
+  var ano  = data.split("-")[0];
+  //pega a primeira fatia da string que vem antes do segundo traço e depois do primeiro
+  var mes  = data.split("-")[1];
+  //pega a primeira fatia da string que vem antes do terceiro traço e depois do segundo
+  var dia  = data.split("-")[2];
+
+  return ("0" + dia).substr(-2) + "/" 
+  + ("0" + (mes)).substr(-2) + "/" + ano;
+}
+
+//converte a data do formato 'DD/MM/YYYY' para 'YYYY/MM/DD'
+function formatBackDate(data){
+    //pega a primeira fatia da string que vem antes do primeiro traço
+    var dia  = data.split("/")[0];
+    //pega a primeira fatia da string que vem antes do segundo traço e depois do primeiro
+    var mes  = data.split("/")[1];
+    //pega a primeira fatia da string que vem antes do terceiro traço e depois do segundo
+    var ano  = data.split("/")[2];
+  
+    return ano + "-" 
+    + ("0" + (mes)).substr(-2) + "-" + ("0" + dia).substr(-2);
+}
+
+//=================================Funções de testes lógicos=================================
 
 function emSituacao(situacao){
   return situacao == listaDeSituacoes[document.getElementById("filtroSituacao").value];
@@ -41,51 +104,78 @@ function emPeriodo(data){
   return data <= document.getElementById("fim").value && data >= document.getElementById("inicio").value;
 }
 
-// Atualiza as divs da lista de carros 
+function checkPlaca(p){
+  let index = -1;
+  for(carro of carros){
+    if(carro.placa == p) index =  carros.indexOf(carro);
+  }
+  return (index >= 0);
+}
+
+//=================================Funções de manipulação de elementos da DOM=================================
+
+// Atualiza as divs da lista de carros de acordo com os filtros de periodo e situacao
 function reloadDivs(){
+  tmpArr = [];
+  loadCarsFromStorage();
   let tableList = document.querySelector("#display ul");
   tableList.innerHTML = "";
    if(document.getElementById("filtroSituacao").value == ""){
-     tmpArr = carros;
-    // alert("sim");
+    tmpArr = carros.filter(function(car){
+      return emPeriodo(car.dataDeCompra);
+    });
    }else{
      tmpArr = carros.filter(function(car){
        return emSituacao(car.situacao) && emPeriodo(car.dataDeCompra);
      });
-    // alert("nope.");
    }
 
   for(var i=0; i < tmpArr.length; i++){
     var DataDaCompra = tmpArr[i].stringDataCompra;
     var DataDaVenda = tmpArr[i].stringDataVenda;
-    var placa = document.createElement("h4");
-    placa.innerHTML = tmpArr[i].placa;
-    var modelo = document.createElement("h4");
-    modelo.innerHTML = tmpArr[i].modelo;
-    var fabricante = document.createElement("h4");
-    fabricante.innerHTML = tmpArr[i].fabricante;
-    var dataDeCompra = document.createElement("h4");
-    dataDeCompra.innerHTML = DataDaCompra;
-    var dataDeVenda = document.createElement("h4");
-    dataDeVenda.innerHTML = DataDaVenda;
-    var situacao = document.createElement("h4");
-    situacao.innerHTML = tmpArr[i].situacao;
+    var placaDiv = document.createElement("h4");
+    placaDiv.innerHTML = tmpArr[i].placa;
+    var modeloDiv = document.createElement("h4");
+    modeloDiv.innerHTML = tmpArr[i].modelo;
+    var fabricanteDiv = document.createElement("h4");
+    fabricanteDiv.innerHTML = tmpArr[i].fabricante;
+    var dataDeCompraDiv = document.createElement("h4");
+    dataDeCompraDiv.innerHTML = DataDaCompra;
+    var dataDeVendaDiv = document.createElement("h4");
+    dataDeVendaDiv.innerHTML = DataDaVenda;
+    var situacaoDiv = document.createElement("h4");
+    situacaoDiv.innerHTML = tmpArr[i].situacao;
     var novaDiv = document.createElement("div");
     var btns = `<button class = 'btnEdit' onclick = 'toggleModal2("${(tmpArr[i].placa)}")'>Editar</button> <button class = 'btnDel' onclick = 'removeElementAndReloadDivs("${(tmpArr[i].placa)}")'>Deletar</button>`
     novaDiv.innerHTML= btns;
-    var li = document.createElement("li");
+    var liDiv = document.createElement("li");
     if(tmpArr[i].situacao=='Vendido'){
-      li.setAttribute("class","Vendido");
+      liDiv.setAttribute("class","Vendido");
     }
-    li.appendChild(placa);
-    li.appendChild(modelo);
-    li.appendChild(fabricante);
-    li.appendChild(dataDeCompra);
-    li.appendChild(dataDeVenda);
-    li.appendChild(situacao);
-    li.appendChild(novaDiv);
-    tableList.appendChild(li);
+    liDiv.appendChild(placaDiv);
+    liDiv.appendChild(modeloDiv);
+    liDiv.appendChild(fabricanteDiv);
+    liDiv.appendChild(dataDeCompraDiv);
+    liDiv.appendChild(dataDeVendaDiv);
+    liDiv.appendChild(situacaoDiv);
+    liDiv.appendChild(novaDiv);
+    tableList.appendChild(liDiv);
   }
+}
+
+//alterar data maxima da divo do filtro de data do periodo e recarregar as divs da lista
+function reloadDataInicioMaxDateAndReloadListDivs(){
+  let dataInicio = document.getElementById("inicio");
+  let dataFim = document.getElementById("fim");
+  dataInicio.setAttribute("max",dataFim.value);
+  reloadDivs();
+}
+//alterar data minima da div do filtro de data de fim do periodo e recarregar as divs da lista
+function reloadDataFimMinDateAndReloadListDivs(){
+  let dataInicio = document.getElementById("inicio");
+  let dataFim = document.getElementById("fim");
+  dataFim.setAttribute("min",dataInicio.value);
+  reloadDivs();
 }
 
 // salva novo array no local storage e recarrega as divs 
@@ -94,16 +184,16 @@ function saveCarsToStorageAndReloadDivs(){
   reloadDivs();
 }
 
+//Funcao criada para editar um carro
 function editCar(field){
   let carroEdit = carros[document.getElementById("editIndex").value];
-  // alert(carroEdit.modelo);
   if(field == 'modelo') carroEdit.modelo = document.getElementById("editModelo").value;
   else if(field == 'datec') {
-    carroEdit.DataDaCompra = stringToDate(document.getElementById("editDataCompra").value);
+    carroEdit.dataDeCompra = stringToDate(document.getElementById("editDataCompra").value);
     carroEdit.stringDataCompra = formatDate(document.getElementById("editDataCompra").value);
   } 
   else if(field == 'datev') {
-    carroEdit.DataDaVenda = stringToDate(document.getElementById("editDataVenda").value);
+    carroEdit.dataDeVenda = stringToDate(document.getElementById("editDataVenda").value);
     carroEdit.stringDataVenda = formatDate(document.getElementById("editDataVenda").value);
   } 
   else if(field == 'situacao') carroEdit.situacao = listaDeSituacoes[document.getElementById("editSituacao").value];
@@ -153,60 +243,9 @@ function loadOptions(){
   }
   document.getElementById("inicio").value = "1994-04-25";
   let now = new Date();
+  document.getElementById("inicio").setAttribute("max",nowDateToInputDateFormat(now));
   document.getElementById("fim").value = nowDateToInputDateFormat(now);
-}
-
-function nowDateToInputDateFormat(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
-
-  return [year, month, day].join('-');
-}
-
-//converte string em data do javascript
-function stringToDate(data) {
-
-  //pega a primeira fatia da string que vem antes do primeiro traço
-  var ano  = data.split("-")[0];
-  //pega a primeira fatia da string que vem antes do segundo traço e depois do primeiro
-  var mes  = data.split("-")[1];
-  //pega a primeira fatia da string que vem antes do terceiro traço e depois do segundo
-  var dia  = data.split("-")[2];
-
-  return new Date(ano,mes-1,dia);
-}
-
-// converte uma data em string e retorna uma string no formato de data local
-function formatDate(data) {
-
-  //pega a primeira fatia da string que vem antes do primeiro traço
-  var ano  = data.split("-")[0];
-  //pega a primeira fatia da string que vem antes do segundo traço e depois do primeiro
-  var mes  = data.split("-")[1];
-  //pega a primeira fatia da string que vem antes do terceiro traço e depois do segundo
-  var dia  = data.split("-")[2];
-
-  return ("0" + dia).substr(-2) + "/" 
-  + ("0" + (mes)).substr(-2) + "/" + ano;
-}
-
-function formatBackDate(data){
-    //pega a primeira fatia da string que vem antes do primeiro traço
-    var dia  = data.split("/")[0];
-    //pega a primeira fatia da string que vem antes do segundo traço e depois do primeiro
-    var mes  = data.split("/")[1];
-    //pega a primeira fatia da string que vem antes do terceiro traço e depois do segundo
-    var ano  = data.split("/")[2];
-  
-    return ano + "-" 
-    + ("0" + (mes)).substr(-2) + "-" + ("0" + dia).substr(-2);
+  document.getElementById("fim").setAttribute("min","1994-04-25");
 }
 
 //funcao para acrescentar a classe hide ao modal para que o estilo do hide possa esconder o elemento
@@ -231,32 +270,24 @@ function toggleModal2(i){
   }
 }
 
-function checkPlaca(p){
-  let index = -1;
-  for(carro of carros){
-    if(carro.placa == p) index =  carros.indexOf(carro);
-  }
-  return (index >= 0);
-}
-
 function saveNewCar(){
 
-  let placa = document.getElementById("placa").value;
-  let modelo = document.getElementById("modelo").value;
-  let datacompra = stringToDate(document.getElementById("datacompra").value);
-  let stringDataDaCompra = formatDate(document.getElementById("datacompra").value);
-  let datavenda = stringToDate(document.getElementById("datavenda").value);
-  let stringDataDaVenda = formatDate(document.getElementById("datavenda").value);
-  let fabricante = listaDeFabricantes[document.getElementById("fabricante").value];
-  let situacao = listaDeSituacoes[document.getElementById("situacao").value];
-  if(checkPlaca(placa)){
+  let placaValue = document.getElementById("placa").value;
+  let modeloValue = document.getElementById("modelo").value;
+  let datacompraValue = stringToDate(document.getElementById("datacompra").value);
+  let stringDataDaCompraValue = formatDate(document.getElementById("datacompra").value);
+  let datavendaValue = stringToDate(document.getElementById("datavenda").value);
+  let stringDataDaVendaValue = formatDate(document.getElementById("datavenda").value);
+  let fabricanteValue = listaDeFabricantes[document.getElementById("fabricante").value];
+  let situacaoValue = listaDeSituacoes[document.getElementById("situacao").value];
+  if(checkPlaca(placaValue)){
     alert("Já existe um carro com esta placa cadastrado no sistema!");
   }
-  else if(placa == "" || modelo == "" || document.getElementById("datacompra").value=="" || document.getElementById("datavenda").value == "" || fabricante == undefined || situacao == undefined){
+  else if(placaValue == "" || modeloValue == "" || document.getElementById("datacompra").value=="" || document.getElementById("datavenda").value == "" || fabricanteValue == undefined || situacaoValue == undefined){
     alert("Preencha todos os campos");
   }
   else{
-    let novoCarro = new Carro(placa,modelo,fabricante,datacompra,stringDataDaCompra,datavenda,stringDataDaVenda,situacao);
+    let novoCarro = new Carro(placaValue,modeloValue,fabricanteValue,datacompraValue,stringDataDaCompraValue,datavendaValue,stringDataDaVendaValue,situacaoValue);
     document.getElementById("placa").value = "";
     document.getElementById("modelo").value = "";
     document.getElementById("datacompra").value = "";

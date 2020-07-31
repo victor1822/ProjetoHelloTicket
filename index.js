@@ -26,10 +26,10 @@ let tmpArr = [];
 
 function loadCarsFromStorage(){
   // Pega os dados do navegador
-  return new Promise((resolve, reject)=>{
+  // return new Promise((resolve, reject)=>{
       carros = JSON.parse(localStorage.getItem('cars')) || []; //caso o local storage esteja vazio, retornar array vazio
-      resolve(carros);
-  });
+      // resolve(carros);
+  // });
 }
 
 // Salva os dados no navegador
@@ -301,6 +301,6 @@ function saveNewCar(){
 }
 
 loadOptions();
-loadCarsFromStorage().then(()=>{
-  reloadDivs();
-});
+loadCarsFromStorage();//.then(()=>{
+reloadDivs();
+//});

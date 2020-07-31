@@ -1,0 +1,21 @@
+@media(max-width: 960px){
+    Main .table .titles h3{
+        font-size: 0.9em;
+    }
+    Main .table .display ul li h4{
+        font-size: 0.9em;
+    }
+    #display ul li h4{
+        font-size: 0.9em;
+    }
+}
+
+@media(max-width: 710px){
+  .filtros{
+      flex-direction: column;
+      /* background-color: aqua; */
+  }  
+  #display ul li h4{
+      font-size: 0.7em;
+  }
+}

@@ -179,9 +179,15 @@ Main{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: calc(100vh - 20px);
+}
+
+Main .TitleContent{
+    flex:1;
 }
 
 Main .btnCreate{
+    flex: 1;
     margin-bottom: 15px;
 }
 
@@ -200,15 +206,17 @@ Main .btnCreate button{
 
 #ref{
     text-align: center;
+    height: 20px;
 }
 
 Main .table{
+    flex: 7;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     justify-content: start;
     justify-self: center;
     width: 95%;
-    height: 60vh;
     align-self: center;
     border-radius: 10px;
     box-shadow: 5px 5px 5px 5px rgba(0,0,0,.621);

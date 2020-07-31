@@ -126,6 +126,7 @@
     /* background-color: pink; */
     height: 80px;
     display: flex;
+    justify-content: center;
     width: 370px;
     padding: 10px;
     padding-top: 20px;

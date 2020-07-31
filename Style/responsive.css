@@ -8,6 +8,9 @@
     #display ul li h4{
         font-size: 0.9em;
     }
+    #modal .content{
+        width: 80%;
+    }
 }
 
 @media(max-width: 710px){
@@ -18,4 +21,21 @@
   #display ul li h4{
       font-size: 0.7em;
   }
+  #modal2 .content{
+    width: 80%;
+}
+}
+
+@media(max-width: 455px){
+    #modal2 .content .cardEditField .field input,
+    #modal2 .content .cardEditField .field select{
+        width: 200px;
+    }
+}
+
+@media(max-width: 380px){
+    #modal2 .content .cardEditField .field input,
+    #modal2 .content .cardEditField .field select{
+        width: 150px;
+    }
 }
